@@ -16,12 +16,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.egbuna.cocktailapp.domain.model.Cocktail
+import com.egbuna.cocktailapp.presentation.Screen
 import com.egbuna.cocktailapp.presentation.cocktaillist.CocktailListViewModel
 import com.egbuna.cocktailapp.presentation.favourite.FavouriteCocktailViewModel
 
 @ExperimentalFoundationApi
 @Composable
 fun CocktailListScreen(
+    navController: NavController,
     viewModel: CocktailListViewModel = hiltViewModel(),
     favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel()
 ) {
@@ -60,7 +62,7 @@ fun CocktailListScreen(
             ) {
                 items(state.success) { item: Cocktail ->
                     CocktailListItem(
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate(Screen.DetailScreen.route + "/${item.id}") },
                         cocktail = item,
                         onFavouriteItemClick = {
                             favouriteCocktailViewModel.saveCocktail(it)

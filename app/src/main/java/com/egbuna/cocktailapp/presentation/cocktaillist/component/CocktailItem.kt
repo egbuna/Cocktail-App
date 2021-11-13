@@ -46,7 +46,7 @@ fun CocktailListItem(
         ) {
             val (image, text, iconButton) = createRefs()
             Image(
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .constrainAs(image) {
                         top.linkTo(parent.top)

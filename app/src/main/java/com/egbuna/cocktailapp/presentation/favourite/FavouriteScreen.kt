@@ -14,52 +14,60 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.egbuna.cocktailapp.domain.model.Cocktail
+import com.egbuna.cocktailapp.presentation.Screen
 import com.egbuna.cocktailapp.presentation.cocktaillist.component.CocktailListItem
 import com.egbuna.cocktailapp.presentation.favourite.FavouriteCocktailViewModel
 
 @ExperimentalFoundationApi
 @Composable
 fun FavouriteScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel()
 ) {
 
     val state = favouriteCocktailViewModel.state
 
-        Column() {
-            Text(
-                modifier = Modifier.padding(start = 8.dp, top = 16.dp),
-                text = "My favourites", style = MaterialTheme.typography.h3, color = Color.White
-            )
-            if (state.value.favouriteCocktails.isEmpty()) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-
-                    Text(
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        text = "You currently have no favourite item(s).",
-                        color = MaterialTheme.colors.error
-                    )
-                }
-            }
-
-            LazyVerticalGrid(
-                modifier = Modifier.fillMaxSize()
-                    .padding(start = 8.dp, end = 8.dp, top = 16.dp),
-                cells = GridCells.Fixed(2)
+    Column() {
+        Text(
+            modifier = Modifier.padding(start = 8.dp, top = 16.dp),
+            text = "My favourites", style = MaterialTheme.typography.h3, color = Color.White
+        )
+        if (state.value.favouriteCocktails.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
             ) {
-                items(state.value.favouriteCocktails) { item: Cocktail ->
-                    CocktailListItem(
-                        onClick = { /*TODO*/ }, cocktail = item, onFavouriteItemClick = {
 
-                        })
-
-                }
+                Text(
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = "You currently have no favourite item(s).",
+                    color = MaterialTheme.colors.error
+                )
             }
         }
+
+        LazyVerticalGrid(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 8.dp, end = 8.dp, top = 16.dp),
+            cells = GridCells.Fixed(2)
+        ) {
+            items(state.value.favouriteCocktails) { item: Cocktail ->
+                CocktailListItem(
+                    onClick = {
+                        navController.navigate(Screen.DetailScreen.route + "/${item.id}")
+                    },
+                    cocktail = item,
+                    onFavouriteItemClick = {
+
+                    })
+
+            }
+        }
+    }
 }
