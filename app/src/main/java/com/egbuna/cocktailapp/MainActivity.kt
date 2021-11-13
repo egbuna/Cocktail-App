@@ -24,6 +24,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.egbuna.cocktailapp.common.BottomNavItem
+import com.egbuna.cocktailapp.presentation.Screen
+import com.egbuna.cocktailapp.presentation.cocktaildetail.CocktailDetailScreen
 import com.egbuna.cocktailapp.presentation.favourite.FavouriteScreen
 import com.egbuna.cocktailapp.presentation.cocktaillist.component.CocktailListScreen
 import com.egbuna.cocktailapp.ui.theme.CocktailAppTheme
@@ -71,13 +73,17 @@ class MainActivity : ComponentActivity() {
 @ExperimentalFoundationApi
 @Composable
 fun Navigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
-            CocktailListScreen()
+    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
+        composable(Screen.HomeScreen.route) {
+            CocktailListScreen(navController = navController)
         }
 
-        composable("favourite") {
-            FavouriteScreen()
+        composable(Screen.FavouriteScreen.route) {
+            FavouriteScreen(navController = navController)
+        }
+
+        composable(Screen.DetailScreen.route + "/{cocktailId}") {
+            CocktailDetailScreen(navController = navController)
         }
     }
 }
@@ -90,23 +96,27 @@ fun BottomNavigationBar(
     onItemClick: (BottomNavItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
-    Card(shape = RoundedCornerShape(8.dp), modifier = Modifier.padding(bottom = 16.dp, start = 30.dp, end = 30.dp)) {
-        BottomNavigation(
-            modifier = modifier
-                .fillMaxWidth(),
-            backgroundColor = Color(0xFF342F2D),
-            elevation = 5.dp
-        ) {
-            items.forEach {
-                val selected = it.route == backStackEntry.value?.destination?.route
-                BottomNavigationItem(
-                    selected = it.route == navController.currentDestination?.route,
-                    onClick = { onItemClick.invoke(it) },
-                    icon = {
-                        Icon(imageVector = it.icon, contentDescription = it.name)
-                    },
-                    unselectedContentColor = Color.Gray
-                )
+
+    if (backStackEntry.value?.destination?.route == Screen.HomeScreen.route || backStackEntry.value?.destination?.route == Screen.FavouriteScreen.route) {
+        Card(shape = RoundedCornerShape(8.dp), modifier = Modifier.padding(bottom = 16.dp, start = 30.dp, end = 30.dp)) {
+            BottomNavigation(
+                modifier = modifier
+                    .fillMaxWidth(),
+                backgroundColor = Color(0xFF342F2D),
+                elevation = 5.dp
+            ) {
+                items.forEach {
+                    val selected = it.route == backStackEntry.value?.destination?.route
+
+                    BottomNavigationItem(
+                        selected = it.route == navController.currentDestination?.route,
+                        onClick = { onItemClick.invoke(it) },
+                        icon = {
+                            Icon(imageVector = it.icon, contentDescription = it.name)
+                        },
+                        unselectedContentColor = Color.Gray
+                    )
+                }
             }
         }
     }

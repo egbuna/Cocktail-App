@@ -3,6 +3,7 @@ package com.egbuna.cocktailapp.data.repository
 import com.egbuna.cocktailapp.data.local.CocktailDao
 import com.egbuna.cocktailapp.data.remote.CocktailApi
 import com.egbuna.cocktailapp.data.remote.dto.CocktailDto
+import com.egbuna.cocktailapp.data.remote.dto.DrinkDto
 import com.egbuna.cocktailapp.domain.model.Cocktail
 import com.egbuna.cocktailapp.domain.repository.CocktailRepository
 import kotlinx.coroutines.flow.Flow
@@ -33,5 +34,9 @@ class CocktailRepositoryImpl @Inject constructor(
 
     override suspend fun saveCocktail(cocktail: Cocktail) {
         cocktailDao.insertCocktail(cocktail)
+    }
+
+    override suspend fun getDrink(id: Int): CocktailDto {
+        return cocktailApi.getDrink(id)
     }
 }

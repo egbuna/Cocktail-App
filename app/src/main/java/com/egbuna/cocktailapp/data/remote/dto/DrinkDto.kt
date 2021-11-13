@@ -5,12 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import com.egbuna.cocktailapp.domain.model.Cocktail
 
-@Entity(
-    foreignKeys = [ForeignKey(entity = Cocktail::class, parentColumns = ["id"], childColumns = ["cocktailId"], onDelete = CASCADE)]
-)
 data class DrinkDto(
-
-
     val cocktailId: String,
     val dateModified: String,
     val idDrink: String,
@@ -69,8 +64,40 @@ fun DrinkDto.toCocktail(): Cocktail {
     )
     cocktail.isAlcoholic = strAlcoholic
     cocktail.glass = strGlass
-    cocktail.ingredients = emptyList()
-    cocktail.measure = emptyList()
+    cocktail.ingredients = listOf(
+        strIngredient1,
+        strIngredient2,
+        strIngredient3,
+        strIngredient4,
+        strIngredient5,
+        strIngredient6,
+        strIngredient7,
+        strIngredient8,
+        strIngredient9,
+        strIngredient10,
+        strIngredient11,
+        strIngredient12,
+        strIngredient13,
+        strIngredient14,
+        strIngredient15)
+    cocktail.measure = listOf(
+        strMeasure1,
+        strMeasure2,
+        strMeasure3,
+        strMeasure4,
+        strMeasure5,
+        strMeasure5,
+        strMeasure6,
+        strMeasure7,
+        strMeasure8,
+        strMeasure9,
+        strMeasure10,
+        strMeasure11,
+        strMeasure12,
+        strMeasure13,
+        strMeasure14,
+        strMeasure15
+    )
     cocktail.instructions = strInstructions
     cocktail.tags = strTags
     return cocktail

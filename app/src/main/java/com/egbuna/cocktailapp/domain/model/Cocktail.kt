@@ -1,6 +1,7 @@
 package com.egbuna.cocktailapp.domain.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.egbuna.cocktailapp.data.remote.dto.DrinkDto
@@ -20,13 +21,13 @@ data class Cocktail(
 
 ) {
     @Ignore
-    var ingredients: List<DrinkDto> = emptyList()
+    var ingredients: List<String?> = emptyList()
 
     @Ignore
     var instructions: String = ""
 
     @Ignore
-    var measure: List<String> = emptyList()
+    var measure: List<String?> = emptyList()
 
     @Ignore
     var tags: String? = ""

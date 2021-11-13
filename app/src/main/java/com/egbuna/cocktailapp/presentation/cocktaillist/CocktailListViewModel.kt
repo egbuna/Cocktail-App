@@ -28,10 +28,10 @@ class CocktailListViewModel @Inject constructor(private val getCocktails: GetCoc
                     _state.value = CocktailListState(isLoading = true)
                 }
                 is Resource.Success -> {
-                    _state.value = CocktailListState(success = result.data ?: emptyList())
+                    _state.value = CocktailListState(success = result.data ?: emptyList(), isLoading = false)
                 }
                 is Resource.Error -> {
-                    _state.value = CocktailListState(error = result.message)
+                    _state.value = CocktailListState(error = result.message, isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
