@@ -1,6 +1,7 @@
 package com.egbuna.cocktailapp.presentation.cocktaillist.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -9,6 +10,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,9 +45,12 @@ fun CocktailListScreen(
                 TextField(modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp, top = 8.dp, end = 8.dp)
-                    , value = searchState.searchWord,
+                    ,value = searchState.searchWord,
                     trailingIcon = {
-                        Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search")
+                        Icon(imageVector = if (searchState.isHintVisible) Icons.Outlined.Search else Icons.Outlined.Clear, contentDescription = "Search",
+                        modifier = Modifier.clickable {
+                            viewModel.onTextChange("")
+                        })
                     },
                     shape = RoundedCornerShape(8.dp),
                     colors = TextFieldDefaults.textFieldColors(

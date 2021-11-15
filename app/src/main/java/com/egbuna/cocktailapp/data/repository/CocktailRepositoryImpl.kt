@@ -14,7 +14,7 @@ class CocktailRepositoryImpl @Inject constructor(
     private val cocktailApi: CocktailApi,
     private val cocktailDao: CocktailDao
 ): CocktailRepository {
-    override suspend fun getCocktails(): CocktailDto = cocktailApi.getDrinks("margarita")
+    override suspend fun searchCocktails(value: String): CocktailDto = cocktailApi.searchCocktailDrinks(value)
 
     override suspend fun searchForCocktail(keyword: String): List<CocktailDto> {
         return emptyList()
@@ -38,5 +38,9 @@ class CocktailRepositoryImpl @Inject constructor(
 
     override suspend fun getDrink(id: Int): CocktailDto {
         return cocktailApi.getDrink(id)
+    }
+
+    override suspend fun getPopularCocktailDrinks(): CocktailDto {
+        return cocktailApi.getPopularCocktail()
     }
 }

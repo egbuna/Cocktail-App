@@ -16,7 +16,7 @@ class GetCocktails @Inject constructor(
      operator fun invoke(): Flow<Resource<List<Cocktail>?>> = flow {
          try {
              emit(Resource.Loading<List<Cocktail>?>())
-             val cocktails = cocktailRepository.getCocktails().drinks?.map { it.toCocktail() }
+             val cocktails = cocktailRepository.getPopularCocktailDrinks().drinks?.map { it.toCocktail() }
              if (cocktails.isNullOrEmpty().not())
                  emit(Resource.Success<List<Cocktail>?>(cocktails))
              else
