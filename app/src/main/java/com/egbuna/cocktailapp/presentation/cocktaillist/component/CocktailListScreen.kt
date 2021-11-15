@@ -2,16 +2,19 @@ package com.egbuna.cocktailapp.presentation.cocktaillist.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -28,30 +31,42 @@ fun CocktailListScreen(
     favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    val listState = rememberLazyListState()
+    val searchState = viewModel.searchState.value
 
+    val listState = rememberLazyListState()
 
     if (state.success.isNotEmpty()) {
 
         Column() {
-            TextField(modifier = Modifier.fillMaxWidth()
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp)
-                , value = "Search",
-                trailingIcon = {
-                               Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search")
-                },
-                shape = RoundedCornerShape(8.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color(0xFF211329),
-                    backgroundColor = Color.LightGray,
-                    cursorColor = Color.White,
-                    trailingIconColor = Color(0xFF211329),
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent
-                ),
-                onValueChange = { text ->
+            Box() {
+                TextField(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+                    , value = searchState.searchWord,
+                    trailingIcon = {
+                        Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search")
+                    },
+                    shape = RoundedCornerShape(8.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = Color(0xFF211329),
+                        backgroundColor = Color.LightGray,
+                        cursorColor = Color.White,
+                        trailingIconColor = Color(0xFF211329),
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent
+                    ),
+                    onValueChange = { text ->
+                        viewModel.onTextChange(text)
+                    })
 
-                })
+                if (searchState.isHintVisible)
+                    Text(text = "e.g Margarita",
+                    modifier = Modifier
+                        .padding(start = 22.dp, top = 25.dp),
+                    style = MaterialTheme.typography.body1,
+                        color = Color.DarkGray
+                    )
+            }
 
             LazyVerticalGrid(
                 state = listState,
