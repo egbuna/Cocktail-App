@@ -14,10 +14,9 @@ class CocktailRepositoryImpl @Inject constructor(
     private val cocktailApi: CocktailApi,
     private val cocktailDao: CocktailDao
 ): CocktailRepository {
-    override suspend fun searchCocktails(value: String): CocktailDto = cocktailApi.searchCocktailDrinks(value)
 
-    override suspend fun searchForCocktail(keyword: String): List<CocktailDto> {
-        return emptyList()
+    override suspend fun searchForCocktail(keyword: String): CocktailDto {
+        return cocktailApi.searchCocktailDrinks(keyword)
     }
 
     override suspend fun deleteCocktail(cocktail: Cocktail) {

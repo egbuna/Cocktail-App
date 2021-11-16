@@ -7,8 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CocktailRepository {
 
-    suspend fun searchCocktails(value: String): CocktailDto
-    suspend fun searchForCocktail(keyword: String): List<CocktailDto>
+    suspend fun searchForCocktail(keyword: String): CocktailDto
     suspend fun deleteCocktail(cocktail: Cocktail)
     suspend fun getCocktail(id: String): Cocktail?
     fun getLocalCocktails(): Flow<List<Cocktail>>
