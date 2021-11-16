@@ -19,6 +19,9 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField("String", "COCKTAIL_API_KEY", props["COCKTAIL_API_KEY"])
+        buildConfigField("String", "COCKTAIL_API_VERSION", props["COCKTAIL_API_VERSION"])
     }
 
     buildTypes {
