@@ -43,7 +43,7 @@ class CocktailListViewModel @Inject constructor(
             _searchState.value = searchState.value.copy(isHintVisible = false, searchWord = value)
             searchJob?.cancel()
             searchJob = viewModelScope.launch {
-                delay(1000)
+                delay(600)
                 searchCocktail.invoke(value).onEach { result ->
                     when(result) {
                         is Resource.Loading -> {
