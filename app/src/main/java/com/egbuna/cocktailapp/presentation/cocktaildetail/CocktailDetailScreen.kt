@@ -66,11 +66,14 @@ fun CocktailDetailScreen(
                     }
                     IconButton(
                         onClick = {
-
+                            if (cocktailDetail.favourite.value)
+                                cocktailDetail.deleteLocalCocktail(state.cocktail?.id.orEmpty())
+                            else
+                                cocktailDetail.saveCocktail(state.cocktail!!)
                         },
                     ) {
                         Icon(
-                            imageVector = if (state.cocktail?.favourited == true) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            imageVector = if (cocktailDetail.favourite.value) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                             contentDescription = "back",
                             tint = Color.White
                         )

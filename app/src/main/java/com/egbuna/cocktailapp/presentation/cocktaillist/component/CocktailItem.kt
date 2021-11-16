@@ -35,7 +35,7 @@ fun CocktailListItem(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier.padding(horizontal = 2.dp, vertical = 4.dp)
     ) {
-        ConstraintLayout(
+        Box(
             modifier = modifier
                 .width(180.dp)
                 .height(230.dp)
@@ -44,42 +44,31 @@ fun CocktailListItem(
                 }
 
         ) {
-            val (image, text, iconButton) = createRefs()
             Image(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .constrainAs(image) {
-                        top.linkTo(parent.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
-                    },
+                    .fillMaxSize(),
                 painter = rememberImagePainter(cocktail.drinkThumb), contentDescription = "Cocktail image"
             )
             Text(text = cocktail.drink, color = Color.White, modifier = Modifier
-                .constrainAs(text) {
-                    top.linkTo(iconButton.top)
-                    start.linkTo(parent.start, margin = 16.dp)
-                    bottom.linkTo(iconButton.bottom)
-                    end.linkTo(iconButton.start)
-                }
-                .width(120.dp),
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                .fillMaxWidth(),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis)
-            IconButton(
-                modifier = Modifier.constrainAs(iconButton) {
-                    top.linkTo(parent.top, margin = 8.dp)
-                    end.linkTo(parent.end)
-                },
-                onClick = {
-                          onFavouriteItemClick.invoke(cocktail)
-                },
-            ) {
-                Icon(
-                    imageVector = if (cocktail.favourited) Icons.Default.Favorite else Icons.Default.FavoriteBorder,tint = Color.White,
-                    contentDescription = "Favourite"
-                )
-            }
+//            IconButton(
+//                modifier = Modifier.constrainAs(iconButton) {
+//                    top.linkTo(parent.top, margin = 8.dp)
+//                    end.linkTo(parent.end)
+//                },
+//                onClick = {
+//                          onFavouriteItemClick.invoke(cocktail)
+//                },
+//            ) {
+//                Icon(
+//                    imageVector = if (cocktail.favourited) Icons.Default.Favorite else Icons.Default.FavoriteBorder,tint = Color.White,
+//                    contentDescription = "Favourite"
+//                )
+//            }
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
