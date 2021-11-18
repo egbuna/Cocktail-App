@@ -29,4 +29,4 @@ To build this project, you require:
 ## Todos
 * Write test for both the remote and local data source
 * Add a filter feature(let users filter cocktails)
-* Hide bottom nav on scroll
+* ~~Hide bottom nav on scroll~~
