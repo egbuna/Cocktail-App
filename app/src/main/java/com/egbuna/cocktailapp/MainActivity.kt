@@ -1,7 +1,6 @@
 package com.egbuna.cocktailapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
@@ -16,12 +15,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
@@ -31,7 +28,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.egbuna.cocktailapp.common.BottomNavItem
 import com.egbuna.cocktailapp.presentation.Screen
-import com.egbuna.cocktailapp.presentation.ScrollViewModel
 import com.egbuna.cocktailapp.presentation.cocktaildetail.CocktailDetailScreen
 import com.egbuna.cocktailapp.presentation.favourite.FavouriteScreen
 import com.egbuna.cocktailapp.presentation.cocktaillist.component.CocktailListScreen
