@@ -1,18 +1,17 @@
 package com.egbuna.cocktailapp.presentation.cocktaillist.component
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.egbuna.cocktailapp.domain.model.Cocktail
 import com.egbuna.cocktailapp.presentation.Screen
+import com.egbuna.cocktailapp.presentation.ScrollViewModel
 import com.egbuna.cocktailapp.presentation.cocktaillist.CocktailListViewModel
 import com.egbuna.cocktailapp.presentation.favourite.FavouriteCocktailViewModel
 
@@ -29,12 +29,15 @@ import com.egbuna.cocktailapp.presentation.favourite.FavouriteCocktailViewModel
 fun CocktailListScreen(
     navController: NavController,
     viewModel: CocktailListViewModel = hiltViewModel(),
-    favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel()
+    favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel(),
+    lazyListState: LazyListState
 ) {
     val state = viewModel.state.value
     val searchState = viewModel.searchState.value
 
-    val listState = rememberLazyListState()
+    //scrollViewModel.isScrolling(listState.isScrollInProgress)
+
+    //Log.e("Scroll State","list state ${listState.isScrollInProgress} viewmodel state ${scrollViewModel.state.value}")
 
     Column() {
         Box() {
@@ -72,7 +75,7 @@ fun CocktailListScreen(
         }
         if (state.success.isNotEmpty()) {
             LazyVerticalGrid(
-                state = listState,
+                state = lazyListState,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(start = 8.dp, end = 4.dp, top = 8.dp),

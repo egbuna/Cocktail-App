@@ -3,6 +3,7 @@ package com.egbuna.cocktailapp.presentation.favourite
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -25,7 +26,8 @@ import com.egbuna.cocktailapp.presentation.favourite.FavouriteCocktailViewModel
 fun FavouriteScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel()
+    favouriteCocktailViewModel: FavouriteCocktailViewModel = hiltViewModel(),
+    lazyListState: LazyListState
 ) {
 
     val state = favouriteCocktailViewModel.state
@@ -52,6 +54,7 @@ fun FavouriteScreen(
         }
 
         LazyVerticalGrid(
+            state = lazyListState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 8.dp, end = 8.dp, top = 16.dp),
