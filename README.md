@@ -14,4 +14,10 @@ The Cocktail App displays a list of popular cocktails, ingredients and measures 
 
 ## Todos
 * Test both the remote and local data source
-* Add a filter feature(let users filter cocktails)
+* Add a filter feature(let users filter cocktails between alchoholic and nonalcho)
+* Hide bottom nav on scroll
+
+## Prerequisite
+To build this project, you require:
+- Android Studio artic fox canary 6 and above
+- Gradle 7.+
