@@ -15,7 +15,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val lazyListState = rememberLazyListState()
 
-                Scaffold(backgroundColor = Color(0xFF211329),bottomBar = {
+                Scaffold(backgroundColor = Color(0xFF211329), bottomBar = {
                     BottomNavigationBar(
                         items = listOf(
                             BottomNavItem(
@@ -78,8 +78,10 @@ class MainActivity : ComponentActivity() {
 
 @ExperimentalFoundationApi
 @Composable
-fun Navigation(navController: NavHostController,
-               lazyListState: LazyListState) {
+fun Navigation(
+    navController: NavHostController,
+    lazyListState: LazyListState
+) {
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
             CocktailListScreen(navController = navController, lazyListState = lazyListState)
@@ -111,10 +113,16 @@ fun BottomNavigationBar(
     if (backStackEntry.value?.destination?.route == Screen.HomeScreen.route || backStackEntry.value?.destination?.route == Screen.FavouriteScreen.route) {
 
         BottomNavVisibility {
-            AnimatedVisibility(visible = state.not(), enter = fadeIn(), exit = fadeOut(), modifier = Modifier.background(color = Color(0xFF342F2D))) {
+            AnimatedVisibility(
+                visible = state.not(),
+                enter = fadeIn(),
+                exit = fadeOut(),
+                modifier = Modifier.background(color = Color(0xFF342F2D))
+            ) {
                 BottomNavigation(
                     modifier = modifier
-                        .fillMaxWidth().background(shape = RoundedCornerShape(8.dp), color = Color(0xFF342F2D)),
+                        .fillMaxWidth()
+                        .background(shape = RoundedCornerShape(8.dp), color = Color(0xFF342F2D)),
                     elevation = 5.dp
                 ) {
                     items.forEach {
@@ -136,8 +144,10 @@ fun BottomNavigationBar(
 
 @Composable
 fun BottomNavVisibility(content: @Composable () -> Unit) {
-    Surface(Modifier.padding(bottom = 16.dp, start = 30.dp, end = 30.dp),
-        RoundedCornerShape(8.dp)) {
+    Surface(
+        Modifier.padding(bottom = 16.dp, start = 30.dp, end = 30.dp),
+        RoundedCornerShape(8.dp)
+    ) {
         content()
     }
 }

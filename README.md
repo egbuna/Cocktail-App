@@ -1,6 +1,6 @@
 # Cocktail-App
 
-The Cocktail App displays a list of popular cocktails along with the respective ingredients and measurements required to make them. It includes features to search and add cocktails to your favourite list.
+The Cocktail App displays a list of popular cocktails, ingredients and measurements required to make it, with features to search and also add to your favourite list.
 
 ## Note
 The home page loads popular cocktails gotten from https://www.thecocktaildb.com. This endpoint is restricted to users that support TheCocktailDB so you'll need
